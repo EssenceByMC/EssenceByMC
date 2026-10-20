@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfumería Femenina — Essence by M&amp;C</title>
+<meta name="description" content="Catálogo de fragancias femeninas. Essence by M&amp;C.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-mujer" data-genero="mujer">
+
+<header class="nav">
+  <a href="index.html" class="brand" aria-label="Essence by M&amp;C — inicio">Essence <span class="amp">&amp;</span> <span class="brand-mc">by M&amp;C</span></a>
+  <nav class="nav-links" aria-label="Principal">
+    <a href="mujer.html" aria-current="page">Mujer</a>
+    <a href="hombre.html">Hombre</a>
+    <a href="unisex.html">Unisex</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="collection">
+    <div class="collection-head">
+      <p class="eyebrow">Colección</p>
+      <h1>Perfumería Femenina</h1>
+      <p class="collection-desc">Del brillo cítrico de una mañana a la calidez envolvente de la noche.</p>
+    </div>
+
+    <div class="filters">
+      <input type="search" class="search" placeholder="Buscar fragancia o marca…" aria-label="Buscar en perfumería femenina">
+      <div class="filter-row">
+        <select class="filter-select" data-filter="marca" aria-label="Filtrar por marca">
+          <option value="">Todas las marcas</option>
+        </select>
+        <div class="chip-group" data-filter="momento">
+          <button class="chip active" data-value="">Todo momento</button>
+          <button class="chip" data-value="dia">Día</button>
+          <button class="chip" data-value="noche">Noche</button>
+        </div>
+      </div>
+      <div class="chip-group notas-group" aria-label="Filtrar por familia olfativa"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <p class="empty-state" id="empty" hidden>No encontramos fragancias con esos filtros. Prueba con otra combinación.</p>
+
+    <div class="explore">
+      <p>Explora también</p>
+      <div class="explore-links">
+        <a class="pill" href="hombre.html">Colección Hombre</a>
+        <a class="pill" href="unisex.html">Colección Unisex</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="contact">
+    <div class="contact-inner">
+      <p class="eyebrow">Essence by M&amp;C</p>
+      <h2>¿Lista la elección?</h2>
+      <p>Escríbenos y coordinamos tu pedido. En cada ficha del catálogo encuentras el tipo de producto (original u otro) y su contenido.</p>
+      <div class="contact-links">
+        <a href="https://wa.me/573011754725" target="_blank" rel="noopener" class="btn btn-gold">WhatsApp</a>
+        <a href="https://instagram.com/essence_bymc" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>Essence by M&amp;C — María Fernanda &amp; Carlos. Catálogo sujeto a disponibilidad.</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
