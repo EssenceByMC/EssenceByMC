@@ -15,6 +15,33 @@
     el.textContent = n + (n === 1 ? " fragancia" : " fragancias");
   });
 
+  // ---------- Portada: franja carrusel detrás del nombre ----------
+  // Con 4 o más fotos (campo "imagen" en data.js) pasan las fotos de las lociones.
+  // Mientras no haya fotos, pasan los nombres de las fragancias.
+  const strip = document.getElementById("strip");
+  const track = document.getElementById("stripTrack");
+  if (strip && track) {
+    const mezclar = arr => arr.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+    const conFoto = PERFUMES.filter(p => p.imagen && p.imagen.trim() !== "");
+    const modoFotos = conFoto.length >= 4;
+    const base = mezclar(modoFotos ? conFoto : PERFUMES).slice(0, 24);
+    const anchoItem = modoFotos ? 184 : 300;       // px aproximados de cada elemento
+    const anchoPantalla = Math.max(window.screen.width || 0, window.innerWidth, 1600);
+
+    // Se repite la lista hasta cubrir la pantalla, y luego se duplica para que el bucle no se note
+    let secuencia = [];
+    while (secuencia.length * anchoItem < anchoPantalla * 1.2) secuencia = secuencia.concat(base);
+
+    const itemHTML = p => modoFotos
+      ? `<span class="strip-photo"><img src="${escapeHTML(rutaImagen(p.imagen))}" alt="" loading="lazy"></span>`
+      : `<span class="strip-name">${escapeHTML(p.nombre)} <em>${escapeHTML(p.marca)}</em></span><span class="strip-sep">✦</span>`;
+
+    const html = secuencia.map(itemHTML).join("");
+    track.innerHTML = html + html;
+    strip.classList.add(modoFotos ? "is-photos" : "is-text");
+    track.style.animationDuration = Math.round((secuencia.length * anchoItem) / (modoFotos ? 38 : 55)) + "s";
+  }
+
   // ---------- Páginas de colección ----------
   const genero = document.body.dataset.genero;
   if (!genero) return; // estamos en la portada
