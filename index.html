@@ -28,29 +28,42 @@
   <section class="hero">
     <div class="hero-inner">
       <p class="hero-eyebrow">María Fernanda &amp; Carlos</p>
-      <h1 class="hero-title">Essence <span class="amp">&amp;</span><br>by M&amp;C</h1>
+      <div class="hero-title-wrap">
+        <!-- Franja animada: se llena sola con las fotos de data.js (o con nombres si aún no hay fotos) -->
+        <div class="strip" id="strip" aria-hidden="true"><div class="strip-track" id="stripTrack"></div></div>
+        <h1 class="hero-title">Essence <span class="amp">&amp;</span><br>by M&amp;C</h1>
+      </div>
       <p class="hero-sub">Una selección pensada para acompañar cada versión de ti — el día y la noche. Cada ficha indica su tipo y contenido.</p>
     </div>
 
     <p class="doors-label">Elige tu colección</p>
     <div class="doors">
       <a class="door door-mujer" href="mujer.html">
-        <span class="door-eyebrow">Colección</span>
-        <span class="door-name">Mujer</span>
-        <span class="door-meta" data-count="mujer"></span>
-        <span class="door-go">Entrar <span aria-hidden="true">→</span></span>
+        <span class="door-num" aria-hidden="true">01</span>
+        <span class="door-body">
+          <span class="door-eyebrow">Colección</span>
+          <span class="door-name">Mujer</span>
+          <span class="door-meta" data-count="mujer"></span>
+        </span>
+        <span class="door-go"><span>Descubrir</span><i class="door-line" aria-hidden="true"></i></span>
       </a>
       <a class="door door-hombre" href="hombre.html">
-        <span class="door-eyebrow">Colección</span>
-        <span class="door-name">Hombre</span>
-        <span class="door-meta" data-count="hombre"></span>
-        <span class="door-go">Entrar <span aria-hidden="true">→</span></span>
+        <span class="door-num" aria-hidden="true">02</span>
+        <span class="door-body">
+          <span class="door-eyebrow">Colección</span>
+          <span class="door-name">Hombre</span>
+          <span class="door-meta" data-count="hombre"></span>
+        </span>
+        <span class="door-go"><span>Descubrir</span><i class="door-line" aria-hidden="true"></i></span>
       </a>
       <a class="door door-unisex" href="unisex.html">
-        <span class="door-eyebrow">Colección</span>
-        <span class="door-name">Unisex</span>
-        <span class="door-meta" data-count="unisex"></span>
-        <span class="door-go">Entrar <span aria-hidden="true">→</span></span>
+        <span class="door-num" aria-hidden="true">03</span>
+        <span class="door-body">
+          <span class="door-eyebrow">Colección</span>
+          <span class="door-name">Unisex</span>
+          <span class="door-meta" data-count="unisex"></span>
+        </span>
+        <span class="door-go"><span>Descubrir</span><i class="door-line" aria-hidden="true"></i></span>
       </a>
     </div>
 
