@@ -1,0 +1,78 @@
+/* =========================================================
+   Essence by M&C — Datos del catálogo
+   Cada fragancia: id, nombre, marca, genero (mujer/hombre/unisex),
+   momento (dia/noche), notas (familias olfativas), destacado.
+
+   Campos nuevos que puedes rellenar libremente en cada producto:
+   - imagen: nombre del archivo de foto (ej. "sauvage.jpg"), vacío si no hay foto aún.
+   - ml: contenido de la botella, ej. "100 ml" (texto libre, deja "" si no aplica).
+   - precio: número sin puntos ni símbolos, ej. 189000 (se muestra como "$ 189.000").
+     También acepta texto, ej. "Desde $150.000". Si lo dejas "" aparece "Consultar precio".
+   Puedes editar, agregar o quitar fragancias aquí sin tocar el resto del sitio.
+   ========================================================= */
+
+const PERFUMES = [
+  { id: 1,  nombre: "212 Men NYC", marca: "Carolina Herrera", genero: "hombre", momento: "dia",   notas: ["Cítrico", "Aromático"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 2,  nombre: "Good Girl", marca: "Carolina Herrera", genero: "mujer", momento: "noche", notas: ["Amaderado", "Dulce", "Almendra"], destacado: true , imagen: "", ml: "Eau de Parfum · 80 ml", precio: "" },
+  { id: 3,  nombre: "La Vie Est Belle", marca: "Lancôme", genero: "mujer", momento: "dia", notas: ["Dulce", "Floral", "Gourmand"], destacado: true , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 4,  nombre: "La Belle", marca: "Jean Paul Gaultier", genero: "mujer", momento: "noche", notas: ["Dulce", "Oriental"] , imagen: "", ml: "Le Parfum", precio: "" },
+  { id: 5,  nombre: "212 Héroes Forever Young", marca: "Carolina Herrera", genero: "hombre", momento: "dia", notas: ["Fresco", "Frutal"] , imagen: "", ml: "Eau de Parfum · 80 ml", precio: "" },
+  { id: 6,  nombre: "Eros Pour Femme", marca: "Versace", genero: "mujer", momento: "noche", notas: ["Floral", "Frutal", "Oriental"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 7,  nombre: "Man Extreme", marca: "Bvlgari", genero: "hombre", momento: "noche", notas: ["Amaderado", "Especiado"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 8,  nombre: "Light Blue", marca: "Dolce & Gabbana", genero: "mujer", momento: "dia", notas: ["Cítrico", "Fresco"] , imagen: "", ml: "Eau de Toilette · 125 ml", precio: "" },
+  { id: 9,  nombre: "212 VIP Men — Are You On The List?", marca: "Carolina Herrera", genero: "hombre", momento: "noche", notas: ["Frutal", "Amaderado"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 10, nombre: "L'Eau D'Issey Pour Homme", marca: "Issey Miyake", genero: "hombre", momento: "dia", notas: ["Acuático", "Fresco"] , imagen: "", ml: "Eau de Toilette · 125 ml", precio: "" },
+  { id: 11, nombre: "1 Million Privé", marca: "Paco Rabanne", genero: "hombre", momento: "noche", notas: ["Oriental", "Especiado", "Ámbar"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 12, nombre: "Phantom", marca: "Paco Rabanne", genero: "hombre", momento: "dia", notas: ["Fresco", "Amaderado"] , imagen: "", ml: "Eau de Toilette", precio: "" },
+  { id: 13, nombre: "Invictus", marca: "Paco Rabanne", genero: "hombre", momento: "dia", notas: ["Acuático", "Amaderado"], destacado: true , imagen: "", ml: "Parfum", precio: "" },
+  { id: 14, nombre: "212 VIP Rosé", marca: "Carolina Herrera", genero: "mujer", momento: "noche", notas: ["Frutal", "Floral"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 15, nombre: "The One", marca: "Dolce & Gabbana", genero: "hombre", momento: "noche", notas: ["Oriental", "Especiado"] , imagen: "", ml: "Eau de Parfum · 75 ml", precio: "" },
+  { id: 16, nombre: "Coco Chanel", marca: "Chanel", genero: "mujer", momento: "noche", notas: ["Oriental", "Especiado", "Ámbar"] , imagen: "", ml: "Eau de Parfum", precio: "" },
+  { id: 17, nombre: "Bad Boy", marca: "Carolina Herrera", genero: "hombre", momento: "noche", notas: ["Amaderado", "Especiado"] , imagen: "", ml: "Eau de Parfum", precio: "" },
+  { id: 18, nombre: "Niche Femme", marca: "Bharara", genero: "mujer", momento: "dia", notas: ["Floral"] , imagen: "", ml: "Parfum", precio: "" },
+  { id: 19, nombre: "Rose", marca: "Bharara", genero: "mujer", momento: "dia", notas: ["Floral", "Rosa"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 20, nombre: "Asad", marca: "Lattafa", genero: "hombre", momento: "noche", notas: ["Oriental", "Ámbar", "Oud"] , imagen: "", ml: "", precio: "" },
+  { id: 21, nombre: "Cloud Pink", marca: "Ariana Grande", genero: "mujer", momento: "dia", notas: ["Dulce", "Gourmand", "Floral"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 22, nombre: "K", marca: "Dolce & Gabbana", genero: "hombre", momento: "dia", notas: ["Amaderado", "Cítrico"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 23, nombre: "Her", marca: "Burberry", genero: "mujer", momento: "noche", notas: ["Frutal", "Floral", "Gourmand"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 24, nombre: "Scandal", marca: "Jean Paul Gaultier", genero: "hombre", momento: "noche", notas: ["Gourmand", "Miel", "Ámbar"], destacado: true , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 25, nombre: "Phantom Elixir", marca: "Paco Rabanne", genero: "hombre", momento: "noche", notas: ["Amaderado", "Ámbar", "Especiado"] , imagen: "", ml: "Eau de Parfum · 150 ml", precio: "" },
+  { id: 26, nombre: "Star Walker", marca: "Montblanc", genero: "hombre", momento: "dia", notas: ["Fresco", "Amaderado"] , imagen: "", ml: "Eau de Toilette · 75 ml", precio: "" },
+  { id: 27, nombre: "Emblem", marca: "Montblanc", genero: "hombre", momento: "dia", notas: ["Aromático", "Amaderado"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 28, nombre: "Rouge Energetic", marca: "Lacoste", genero: "hombre", momento: "dia", notas: ["Fresco", "Especiado"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 29, nombre: "Blanc Pure", marca: "Lacoste", genero: "hombre", momento: "dia", notas: ["Acuático", "Fresco"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 30, nombre: "Red", marca: "Hugo Boss", genero: "hombre", momento: "noche", notas: ["Amaderado", "Especiado"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 31, nombre: "Fahrenheit", marca: "Dior", genero: "hombre", momento: "noche", notas: ["Amaderado", "Cuero"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 32, nombre: "Ombré Nomade", marca: "Louis Vuitton", genero: "hombre", momento: "noche", notas: ["Oud", "Amaderado", "Ahumado"], destacado: true , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 33, nombre: "Omnia Coral", marca: "Bvlgari", genero: "mujer", momento: "dia", notas: ["Floral", "Frutal"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 34, nombre: "Can Can", marca: "Paris Hilton", genero: "mujer", momento: "noche", notas: ["Oriental", "Floral"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 35, nombre: "N°5", marca: "Chanel", genero: "mujer", momento: "noche", notas: ["Floral", "Clásico"], destacado: true , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 36, nombre: "Le Male Elixir", marca: "Jean Paul Gaultier", genero: "hombre", momento: "noche", notas: ["Oriental", "Dulce", "Vainilla"] , imagen: "", ml: "", precio: "" },
+  { id: 37, nombre: "Le Male Le Parfum", marca: "Jean Paul Gaultier", genero: "hombre", momento: "noche", notas: ["Oriental", "Especiado", "Vainilla"] , imagen: "", ml: "", precio: "" },
+  { id: 38, nombre: "Le Male", marca: "Jean Paul Gaultier", genero: "hombre", momento: "dia", notas: ["Aromático", "Fougère"] , imagen: "", ml: "", precio: "" },
+  { id: 39, nombre: "Ultra Male", marca: "Jean Paul Gaultier", genero: "hombre", momento: "noche", notas: ["Oriental", "Dulce", "Caramelo"] , imagen: "", ml: "", precio: "" },
+  { id: 40, nombre: "Le Beau", marca: "Jean Paul Gaultier", genero: "hombre", momento: "dia", notas: ["Amaderado", "Coco", "Fresco"] , imagen: "", ml: "Le Parfum", precio: "" },
+  { id: 41, nombre: "Emeer", marca: "Lattafa", genero: "hombre", momento: "noche", notas: ["Oriental", "Ámbar", "Especiado"] , imagen: "", ml: "", precio: "" },
+  { id: 42, nombre: "Yum Yum", marca: "Armaf", genero: "mujer", momento: "dia", notas: ["Dulce", "Gourmand"] , imagen: "", ml: "", precio: "" },
+  { id: 43, nombre: "Khamrah", marca: "Lattafa", genero: "unisex", momento: "noche", notas: ["Oriental", "Ámbar", "Ron"] , imagen: "", ml: "", precio: "" },
+  { id: 44, nombre: "Il Femme", marca: "Ilmin", genero: "mujer", momento: "noche", notas: ["Nicho", "Amaderado", "Floral"] , imagen: "", ml: "", precio: "" },
+  { id: 45, nombre: "Island Bliss", marca: "Armaf", genero: "mujer", momento: "dia", notas: ["Frutal", "Tropical"] , imagen: "", ml: "", precio: "" },
+  { id: 46, nombre: "Yara Moi", marca: "Lattafa", genero: "mujer", momento: "noche", notas: ["Dulce", "Vainilla", "Frutal"] , imagen: "", ml: "", precio: "" },
+  { id: 47, nombre: "Double Blue", marca: "Bharara", genero: "hombre", momento: "dia", notas: ["Fresco", "Aromático"] , imagen: "", ml: "", precio: "" },
+  { id: 48, nombre: "1 Million Gold", marca: "Paco Rabanne", genero: "hombre", momento: "noche", notas: ["Oriental", "Especiado", "Ámbar"] , imagen: "", ml: "", precio: "" },
+  { id: 49, nombre: "Invictus Victory", marca: "Paco Rabanne", genero: "hombre", momento: "noche", notas: ["Amaderado", "Ámbar"] , imagen: "", ml: "", precio: "" },
+  { id: 50, nombre: "Invictus Parfum", marca: "Paco Rabanne", genero: "hombre", momento: "dia", notas: ["Acuático", "Amaderado"] , imagen: "", ml: "", precio: "" },
+  { id: 51, nombre: "Dylan Blue Pour Femme", marca: "Versace", genero: "mujer", momento: "dia", notas: ["Frutal", "Floral"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 52, nombre: "Arabians Tonka", marca: "Montale", genero: "unisex", momento: "noche", notas: ["Oriental", "Oud"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 53, nombre: "Man In Black", marca: "Bvlgari", genero: "hombre", momento: "noche", notas: ["Oriental", "Cuero", "Especiado"] , imagen: "", ml: "Eau de Parfum · 100 ml", precio: "" },
+  { id: 54, nombre: "Aqua Pour Homme", marca: "Bvlgari", genero: "hombre", momento: "dia", notas: ["Acuático", "Marino"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 55, nombre: "Candee Odyssey", marca: "Armaf", genero: "mujer", momento: "dia", notas: ["Dulce", "Gourmand", "Frutal"] , imagen: "", ml: "Eau de Parfum", precio: "" },
+  { id: 56, nombre: "Donna Born In Roma Pink", marca: "Valentino", genero: "mujer", momento: "noche", notas: ["Floral", "Ámbar"] , imagen: "", ml: "", precio: "" },
+  { id: 57, nombre: "Sauvage", marca: "Dior", genero: "hombre", momento: "dia", notas: ["Fresco", "Amaderado", "Especiado"], destacado: true , imagen: "", ml: "Eau de Parfum", precio: "" },
+  { id: 58, nombre: "Blue Label", marca: "Givenchy", genero: "hombre", momento: "dia", notas: ["Aromático", "Amaderado"] , imagen: "", ml: "Eau de Toilette · 100 ml", precio: "" },
+  { id: 59, nombre: "Good Girl Fantastic Pink", marca: "Carolina Herrera", genero: "mujer", momento: "noche", notas: ["Gourmand", "Frutal"] , imagen: "", ml: "", precio: "" },
+  { id: 60, nombre: "Dazzle", marca: "Paris Hilton", genero: "mujer", momento: "dia", notas: ["Floral", "Frutal"] , imagen: "", ml: "Eau de Parfum · 125 ml", precio: "" },
+  { id: 61, nombre: "Bright Crystal Absolu", marca: "Versace", genero: "mujer", momento: "dia", notas: ["Floral", "Frutal"] , imagen: "", ml: "", precio: "" },
+  { id: 62, nombre: "Thank U, Next", marca: "Ariana Grande", genero: "mujer", momento: "dia", notas: ["Frutal", "Gourmand"] , imagen: "", ml: "", precio: "" },
+  { id: 63, nombre: "La Belle Paradise Garden", marca: "Jean Paul Gaultier", genero: "mujer", momento: "dia", notas: ["Floral", "Tropical"], imagen: "", ml: "", precio: "" },
+];
