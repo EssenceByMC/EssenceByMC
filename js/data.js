@@ -26,7 +26,7 @@ const PERFUMES = [
   { id: 12, nombre: "Phantom", marca: "Paco Rabanne", genero: "hombre", momento: "dia", notas: ["Fresco", "Amaderado"] , imagen: "phantom-paco-rabanne.jpg - Editado.png", ml: "Eau de Toilette", precio: "" },
   { id: 13, nombre: "Invictus", marca: "Paco Rabanne", genero: "hombre", momento: "dia", notas: ["Acuático", "Amaderado"], destacado: true , imagen: "pacorabanneInvictuscambio.jpg - Editado.png", ml: "Parfum", precio: "" },
   { id: 14, nombre: "212 VIP Rosé", marca: "Carolina Herrera", genero: "mujer", momento: "noche", notas: ["Frutal", "Floral"] , imagen: "212_VipRoseCambio.jpg - Editado.png", ml: "Eau de Toilette · 100 ml", precio: "" },
-  { id: 15, nombre: "The One", marca: "Dolce & Gabbana", genero: "hombre", momento: "noche", notas: ["Oriental", "Especiado"] , imagen: "", ml: "Eau de Parfum · 75 ml", precio: "" },
+  { id: 15, nombre: "The One", marca: "Dolce & Gabbana", genero: "mujer", momento: "noche", notas: ["Oriental", "Floral", "Vainilla"] , imagen: "dolce_gabbana_the_one_mujer.jpg - Editado.png", ml: "Eau de Parfum · 75 ml", precio: "" },
   { id: 16, nombre: "Coco Chanel", marca: "Chanel", genero: "mujer", momento: "noche", notas: ["Oriental", "Especiado", "Ámbar"] , imagen: "coco-chanel.jpg - Editado.png", ml: "Eau de Parfum", precio: "" },
   { id: 17, nombre: "Bad Boy", marca: "Carolina Herrera", genero: "hombre", momento: "noche", notas: ["Amaderado", "Especiado"] , imagen: "Bad_boy_CH.jpg - Editado.png", ml: "Eau de Parfum", precio: "" },
   { id: 18, nombre: "Niche Femme", marca: "Bharara", genero: "mujer", momento: "dia", notas: ["Floral"] , imagen: "niche-femme-bharara.jpg - Editado.png", ml: "Parfum", precio: "" },
@@ -102,4 +102,5 @@ const PERFUMES = [
   { id: 89, nombre: "The Most Wanted Parfum", marca: "Azzaro", genero: "hombre", momento: "noche", notas: ["Especiado", "Ámbar", "Dulce"], imagen: "Azzaro_TheMostWanterParfum.jpg - Editado.png", ml: "", precio: "" },
   { id: 90, nombre: "Art Of Universe", marca: "Lattafa", genero: "unisex", momento: "noche", notas: ["Oriental", "Ámbar", "Dulce"], imagen: "ArtOfUniverse.jpg - Editado.png", ml: "", precio: "" },
   { id: 91, nombre: "Percival", marca: "Parfums de Marly", genero: "hombre", momento: "dia", notas: ["Cítrico", "Aromático", "Fresco"], imagen: "Percival_Parfums_De_Marly.jpg - Editado.png", ml: "", precio: "" },
+  { id: 92, nombre: "Toy 2", marca: "Moschino", genero: "unisex", momento: "dia", notas: ["Frutal", "Floral", "Fresco"], imagen: "Moschino_Toy2.jpg - Editado.png", ml: "", precio: "" },
 ];
