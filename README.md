@@ -47,9 +47,30 @@ Todo el catálogo vive en **`js/data.js`**. Cada fragancia es un bloque así:
 - `notas`: lista de familias olfativas — los filtros se generan solos según lo que escribas aquí.
 - `destacado: true` (opcional) — le pone una etiqueta "Favorito".
 - `ml` (opcional): tipo y contenido, por ejemplo `"Eau de Parfum · 100 ml"`.
+- `tipo` (opcional): el tipo de producto, por ejemplo `tipo: "Original"` o `tipo: "Árabe"` (escribe la palabra que quieras). Aparece como etiqueta en la tarjeta y, en cuanto una fragancia de la colección tenga tipo, aparece solo el filtro "Todos los tipos". Si lo dejas sin escribir, no se muestra nada.
 - `precio` (opcional): escríbelo como número, sin puntos ni símbolos: `precio: 189000` se muestra como "$ 189.000" al fondo de la tarjeta. También acepta texto (`precio: "Desde $150.000"`). Si lo dejas vacío (`precio: ""`) la tarjeta muestra "Consultar".
 
 No necesitas tocar el HTML ni el CSS para actualizar el catálogo, solo este archivo.
+
+## Pedidos por WhatsApp y "Mi lista"
+
+- Cada tarjeta tiene el botón **Pedir por WhatsApp**: abre el chat con el mensaje ya escrito con el nombre del perfume.
+- El **corazón** de cada tarjeta lo guarda en **Mi lista**. El cliente puede armar su lista (se conserva en su navegador, entre páginas) y enviarla completa por WhatsApp.
+- Abajo a la derecha hay un botón flotante de WhatsApp y el de **Mi lista**, visibles en todas las páginas.
+- El número de WhatsApp está en `js/script.js` (constante `WHATSAPP`, al inicio) y también en los enlaces de contacto de los 4 `.html`.
+
+## Portada: confianza, favoritos y preguntas
+
+- **Franja de confianza** y **Preguntas frecuentes**: el texto está en `index.html` (busca `trust-list` y `faq-list`). Edítalo si cambian los tiempos o las formas de pago.
+- **Nuestros favoritos**: se llena solo con las fragancias que tengan `destacado: true` en `data.js`.
+
+## Vista previa al compartir el link
+
+Al compartir la página en WhatsApp o Instagram se muestra la imagen `img/og-portada.png`. Las etiquetas `og:image` de los 4 `.html` apuntan a `https://essencebymc.github.io/EssenceByMC/img/og-portada.png`. **Cuando cambien al dominio propio, hay que actualizar esa dirección en los 4 `.html`.**
+
+## Franja de fotos de la portada
+
+La franja que se mueve detrás del nombre se llena sola con las fotos de `js/data.js` (las fragancias que tengan el campo `imagen`). Con 4 o más fotos pasan las fotos; mientras tanto pasan los nombres de las fragancias. No hay que configurar nada.
 
 ## Cómo cambiar los colores
 
