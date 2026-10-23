@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Essence by M&amp;C — Perfumería de lujo</title>
-<meta name="description" content="Perfumería de lujo: fragancias para mujer, hombre y unisex. Essence by M&amp;C.">
+<meta name="description" content="Perfumería de lujo para mujer, hombre y unisex. Envíos a todo Colombia, pago contraentrega y atención personalizada.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Essence by M&amp;C">
+<meta property="og:locale" content="es_CO">
+<meta property="og:title" content="Essence by M&amp;C — Perfumería de lujo">
+<meta property="og:description" content="Perfumería de lujo para mujer, hombre y unisex. Envíos a todo Colombia, pago contraentrega y atención personalizada.">
+<meta property="og:image" content="https://essencebymc.github.io/EssenceByMC/img/og-portada.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -18,6 +27,7 @@
     <a href="mujer.html">Mujer</a>
     <a href="hombre.html">Hombre</a>
     <a href="unisex.html">Unisex</a>
+    <a href="#preguntas">Preguntas</a>
     <a href="#contacto">Contacto</a>
   </nav>
 </header>
@@ -70,7 +80,77 @@
     <div class="hero-badges">
       <span>Catálogo variado</span>
       <span>Detalle por producto</span>
-      <span>+60 fragancias</span>
+      <span data-total>+60 fragancias</span>
+    </div>
+  </section>
+
+  <!-- CONFIANZA -->
+  <section class="trust" aria-label="Cómo compras con nosotros">
+    <ul class="trust-list">
+      <li>
+        <span class="trust-mark" aria-hidden="true">✦</span>
+        <strong>Envíos a todo Colombia</strong>
+        <span>Envío normal o contraentrega</span>
+      </li>
+      <li>
+        <span class="trust-mark" aria-hidden="true">✦</span>
+        <strong>Entrega en una semana</strong>
+        <span>Aproximadamente, según tu ciudad</span>
+      </li>
+      <li>
+        <span class="trust-mark" aria-hidden="true">✦</span>
+        <strong>Paga como prefieras</strong>
+        <span>Nequi, Daviplata, Nu o efectivo</span>
+      </li>
+      <li>
+        <span class="trust-mark" aria-hidden="true">✦</span>
+        <strong>Atención personalizada</strong>
+        <span>Te ayudamos a elegir por WhatsApp</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- NUESTROS FAVORITOS (se llena solo con las fragancias marcadas destacado: true en data.js) -->
+  <section id="favoritos" class="favoritos">
+    <div class="section-head">
+      <p class="eyebrow">Selección</p>
+      <h2>Nuestros favoritos</h2>
+      <p>Las fragancias que más recomendamos. Toca una para verla en su colección.</p>
+    </div>
+    <div class="top-grid" id="favoritosGrid"></div>
+  </section>
+
+  <!-- PREGUNTAS FRECUENTES -->
+  <section id="preguntas" class="faq">
+    <div class="section-head">
+      <p class="eyebrow">Ayuda</p>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>¿Cómo hago mi pedido?</summary>
+        <p>Elige tu fragancia en el catálogo y pulsa «Pedir por WhatsApp»: se abre un chat con el mensaje ya escrito. Si quieres varias, toca el corazón en cada una y envíanos tu lista completa desde «Mi lista». Luego coordinamos contigo todo el pedido.</p>
+      </details>
+      <details>
+        <summary>¿Hacen envíos a todo el país?</summary>
+        <p>Sí, enviamos a toda Colombia. Puedes elegir envío normal o contraentrega.</p>
+      </details>
+      <details>
+        <summary>¿Cuánto demora en llegar?</summary>
+        <p>Aproximadamente una semana. El tiempo exacto puede variar según tu ciudad; te lo confirmamos al coordinar tu pedido.</p>
+      </details>
+      <details>
+        <summary>¿Qué formas de pago aceptan?</summary>
+        <p>Recibimos pagos por Nequi, Daviplata, Nu y también en efectivo.</p>
+      </details>
+      <details>
+        <summary>¿Cómo sé qué tipo de producto es cada perfume?</summary>
+        <p>Cada ficha del catálogo indica el tipo de producto y su contenido. Si tienes dudas sobre alguna fragancia, escríbenos y te contamos todo antes de pedir.</p>
+      </details>
+      <details>
+        <summary>¿Me ayudan a elegir un perfume?</summary>
+        <p>Claro. Cuéntanos qué aromas te gustan, si lo quieres para el día o la noche y para quién es, y te recomendamos opciones por WhatsApp. También puedes usar los filtros por notas y momento en cada colección.</p>
+      </details>
     </div>
   </section>
 
@@ -84,6 +164,7 @@
         <a href="https://wa.me/573011754725" target="_blank" rel="noopener" class="btn btn-gold">WhatsApp</a>
         <a href="https://instagram.com/essence_bymc" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
       </div>
+      <p class="pagos">Nequi · Daviplata · Nu · Efectivo</p>
     </div>
   </section>
 
