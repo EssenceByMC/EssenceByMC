@@ -767,9 +767,291 @@ button{ font-family: var(--font-body); cursor: pointer; }
   text-align: center;
   font-size: .74rem;
   letter-spacing: .06em;
-  padding: 24px;
+  padding: 24px 24px 92px;
   border-top: 1px solid var(--onyx-line);
 }
+
+
+/* =========================================================
+   PEDIDOS: botón en tarjeta, corazón, tipo
+   ========================================================= */
+.card-media{ position: relative; }
+
+.fav-btn{
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 38px; height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--muted);
+  padding: 0;
+  transition: transform var(--transition), color var(--transition), border-color var(--transition), background var(--transition);
+}
+.fav-btn svg{ fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.fav-btn:hover{ transform: scale(1.08); border-color: var(--gold); color: var(--accent); }
+.fav-btn[aria-pressed="true"]{ background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.fav-btn[aria-pressed="true"] svg{ fill: currentColor; }
+
+.btn-pedir{
+  display: block;
+  margin-top: 16px;
+  padding: 13px 16px;
+  text-align: center;
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.btn-pedir:hover{ background: var(--accent); color: var(--on-accent); transform: translateY(-1px); }
+
+.tipo-badge{
+  font-size: .64rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  color: var(--accent);
+}
+.theme-hombre .tipo-badge{ color: var(--gold-soft); }
+
+.select-group{ display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- Dock flotante (Mi lista + WhatsApp) ---------- */
+.dock{
+  position: fixed;
+  right: 18px; bottom: 18px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.dock-list, .dock-wa{
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 26px -10px rgba(0,0,0,.45);
+  transition: transform var(--transition), background var(--transition);
+}
+.dock-list:hover, .dock-wa:hover{ transform: translateY(-2px); }
+.dock-list{
+  background: var(--card);
+  color: var(--accent);
+  border: 1px solid var(--gold);
+}
+.dock-list svg{ fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.dock-list.tiene-items svg{ fill: currentColor; }
+.dock-count{
+  min-width: 20px; height: 20px;
+  padding: 0 6px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: .68rem;
+  letter-spacing: 0;
+}
+.dock-count[hidden]{ display: none; }
+.dock-wa{
+  background: var(--gold);
+  color: #1a1510;
+  border: 1px solid var(--gold);
+}
+.dock-wa:hover{ background: var(--gold-soft); }
+.dock-wa svg{ fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+
+/* ---------- Panel "Mi lista" ---------- */
+.drawer-backdrop{
+  position: fixed; inset: 0;
+  z-index: 70;
+  background: rgba(15,12,10,.55);
+}
+.drawer-backdrop[hidden], .drawer[hidden]{ display: none; }
+.drawer{
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  z-index: 80;
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  border-left: 1px solid var(--line);
+  box-shadow: -20px 0 50px -20px rgba(0,0,0,.5);
+  animation: slideIn .28s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes slideIn{ from{ transform: translateX(30px); opacity: 0; } to{ transform: none; opacity: 1; } }
+.drawer-head{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-head h2{ font-size: 1.8rem; font-style: italic; color: var(--accent); }
+.drawer-close{
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+}
+.drawer-close:hover{ border-color: var(--gold); }
+.drawer-items{
+  list-style: none;
+  margin: 0; padding: 8px 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+.drawer-items li{
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--card-line);
+}
+.drawer-item-name{ display: flex; flex-direction: column; gap: 3px; }
+.drawer-item-name strong{ font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.2rem; }
+.drawer-item-name small{ font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.drawer-quitar{
+  flex-shrink: 0;
+  background: none; border: 0;
+  font-size: .66rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.drawer-quitar:hover{ color: var(--accent); }
+.drawer-empty{
+  flex: 1;
+  padding: 32px 24px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+.drawer-empty[hidden], .drawer-foot[hidden]{ display: none; }
+.drawer-foot{
+  padding: 18px 24px 24px;
+  border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 12px; align-items: stretch;
+  text-align: center;
+}
+.drawer-clear{
+  background: none; border: 0;
+  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted);
+}
+.drawer-clear:hover{ color: var(--accent); }
+body.drawer-open{ overflow: hidden; }
+
+/* =========================================================
+   PORTADA: confianza, favoritos, preguntas
+   ========================================================= */
+.section-head{
+  max-width: 640px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.section-head h2{ font-size: clamp(2rem, 4.5vw, 2.8rem); font-style: italic; color: var(--accent); }
+.section-head p:not(.eyebrow){ margin-top: 12px; color: var(--muted); font-weight: 300; }
+
+.trust{
+  background: var(--bg-2);
+  padding: 44px clamp(20px, 5vw, 64px);
+  border-top: 1px solid var(--card-line);
+  border-bottom: 1px solid var(--card-line);
+}
+.trust-list{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 24px;
+  text-align: center;
+}
+.trust-list li{ display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.trust-mark{ color: var(--gold); font-size: .9rem; }
+.trust-list strong{
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.35rem;
+  color: var(--accent);
+  line-height: 1.15;
+}
+.trust-list span:not(.trust-mark){ font-size: .8rem; color: var(--muted); letter-spacing: .04em; line-height: 1.5; }
+
+.favoritos{ padding: 84px clamp(20px, 5vw, 64px) 70px; background: var(--bg); }
+.favoritos[hidden]{ display: none; }
+.top-grid{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 22px;
+}
+.top-card{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: var(--radius);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+.top-card:hover{ transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 18px 40px -22px var(--shadow); }
+.top-card .card-img{ margin-bottom: 10px; }
+.top-marca{ font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.top-nombre{ font-family: var(--font-display); font-style: italic; font-size: 1.3rem; line-height: 1.2; color: var(--text); }
+
+.faq{ padding: 70px clamp(20px, 5vw, 64px) 96px; background: var(--bg-2); }
+.faq-list{ max-width: 760px; margin: 0 auto; }
+.faq-list details{ border-bottom: 1px solid var(--line); }
+.faq-list summary{
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 36px 20px 0;
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--text);
+}
+.faq-list summary::-webkit-details-marker{ display: none; }
+.faq-list summary::after{
+  content: "+";
+  position: absolute; right: 4px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 1.4rem;
+  color: var(--gold);
+  transition: transform var(--transition);
+}
+.faq-list details[open] summary::after{ transform: translateY(-50%) rotate(45deg); }
+.faq-list summary:hover{ color: var(--accent); }
+.faq-list p{ padding: 0 0 22px; color: var(--muted); line-height: 1.7; font-weight: 300; max-width: 62ch; }
+
+.contact .pagos, .pagos{
+  margin-top: 26px;
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+}
+.contact p.pagos{ color: var(--gold-soft); font-weight: 400; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 760px){
@@ -779,10 +1061,22 @@ button{ font-family: var(--font-body); cursor: pointer; }
   .strip.is-photos{ height: 150px; }
   .strip-photo{ height: 150px; }
 }
+@media (max-width: 860px){
+  .trust-list{ grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 640px){
+  .dock{ right: 12px; bottom: 12px; }
+  .dock-wa span{ display: none; }
+  .dock-wa{ padding: 13px; }
+  .trust-list{ gap: 26px 14px; }
+  .trust-list strong{ font-size: 1.15rem; }
+  .top-grid{ grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .top-card{ padding: 10px 10px 14px; }
+  .top-nombre{ font-size: 1.1rem; }
+  .faq-list summary{ font-size: 1.15rem; }
   .nav{ flex-direction: column; gap: 10px; padding: 14px 18px; }
-  .nav-links{ gap: 18px; }
-  .nav-links a{ font-size: .72rem; }
+  .nav-links{ gap: 8px 16px; flex-wrap: wrap; justify-content: center; }
+  .nav-links a{ font-size: .68rem; letter-spacing: .1em; }
   .hero{ min-height: auto; padding: 48px 18px 40px; }
   .collection{ padding-top: 48px; }
   .filter-row{ flex-direction: column; align-items: stretch; }
@@ -799,4 +1093,5 @@ button{ font-family: var(--font-body); cursor: pointer; }
     animation-iteration-count: 1 !important;
   }
   .strip-track{ animation: none !important; }
+  .drawer{ animation: none !important; }
 }
