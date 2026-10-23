@@ -74,7 +74,7 @@ const PERFUMES = [
   { id: 61, nombre: "Bright Crystal Absolu", marca: "Versace", genero: "mujer", momento: "dia", notas: ["Floral", "Frutal"] , imagen: "brigth_crystal_absolu_versace.jpg - Editado.png", ml: "", precio: "" },
   { id: 62, nombre: "Thank U, Next", marca: "Ariana Grande", genero: "mujer", momento: "dia", notas: ["Frutal", "Gourmand"] , imagen: "thanku_next_arianagrande.jpg - Editado.png", ml: "", precio: "" },
   { id: 63, nombre: "La Belle Paradise Garden", marca: "Jean Paul Gaultier", genero: "mujer", momento: "dia", notas: ["Floral", "Tropical"], imagen: "labelle_paradise_garden_Jeanpg.jpg - Editado.png", ml: "", precio: "" },
-  { id: 64, nombre: "Toy 2 Bubble Gum", marca: "Moschino", genero: "unisex", momento: "dia", notas: ["Frutal", "Dulce", "Gourmand"], imagen: "Moschino_Toy2_Bubblegum.jpg - Editado.png", ml: "", precio: "" },
+  { id: 64, nombre: "Toy 2 Bubble Gum", marca: "Moschino", genero: "mujer", momento: "dia", notas: ["Frutal", "Dulce", "Gourmand"], imagen: "Moschino_Toy2_Bubblegum.jpg - Editado.png", ml: "", precio: "" },
   { id: 65, nombre: "La Bomba", marca: "Carolina Herrera", genero: "mujer", momento: "dia", notas: ["Frutal", "Floral", "Dulce"], imagen: "La_Bomba_CH.jpg - Editado.png", ml: "", precio: "" },
   { id: 66, nombre: "Odyssey Mandarin Sky", marca: "Armaf", genero: "unisex", momento: "dia", notas: ["Cítrico", "Dulce", "Vainilla"], imagen: "Odyssey_Mandarinsky.jpg - Editado.png", ml: "", precio: "" },
   { id: 67, nombre: "Cloud", marca: "Ariana Grande", genero: "mujer", momento: "noche", notas: ["Dulce", "Gourmand", "Vainilla"], imagen: "Cloud_ArianaGrande.jpg - Editado.png", ml: "", precio: "" },
@@ -102,5 +102,5 @@ const PERFUMES = [
   { id: 89, nombre: "The Most Wanted Parfum", marca: "Azzaro", genero: "hombre", momento: "noche", notas: ["Especiado", "Ámbar", "Dulce"], imagen: "Azzaro_TheMostWanterParfum.jpg - Editado.png", ml: "", precio: "" },
   { id: 90, nombre: "Art Of Universe", marca: "Lattafa", genero: "unisex", momento: "noche", notas: ["Oriental", "Ámbar", "Dulce"], imagen: "ArtOfUniverse.jpg - Editado.png", ml: "", precio: "" },
   { id: 91, nombre: "Percival", marca: "Parfums de Marly", genero: "hombre", momento: "dia", notas: ["Cítrico", "Aromático", "Fresco"], imagen: "Percival_Parfums_De_Marly.jpg - Editado.png", ml: "", precio: "" },
-  { id: 92, nombre: "Toy 2", marca: "Moschino", genero: "unisex", momento: "dia", notas: ["Frutal", "Floral", "Fresco"], imagen: "Moschino_Toy2.jpg - Editado.png", ml: "", precio: "" },
+  { id: 92, nombre: "Toy 2", marca: "Moschino", genero: "mujer", momento: "dia", notas: ["Frutal", "Floral", "Fresco"], imagen: "Moschino_Toy2.jpg - Editado.png", ml: "", precio: "" },
 ];
