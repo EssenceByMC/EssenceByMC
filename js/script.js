@@ -25,7 +25,9 @@
   // Si en data.js escriben solo "sauvage.jpg", la foto se busca en la carpeta img/
   function rutaImagen(nombre) {
     const n = nombre.trim();
-    return /^(https?:)?\/\//.test(n) || n.includes("/") ? n : "img/" + n;
+    if (/^(https?:)?\/\//.test(n)) return n;
+    // encodeURI deja los espacios y tildes de los nombres de archivo en un formato que el navegador entiende
+    return encodeURI(n.includes("/") ? n : "img/" + n);
   }
 
   function imagenHTML(p) {
@@ -66,8 +68,74 @@
   const porId = id => PERFUMES.find(p => p.id === id);
   const enLista = id => lista.includes(id);
 
+  // ---------- Oferta de la semana ----------
+  // Cada lunes (hora de Colombia) cambia solo: un perfume de hombre y uno de mujer.
+  // El orden es mezclado pero fijo, así recorre todos los perfumes sin repetir hasta pasar por todos.
+  const OFERTA = {
+    descuentos: [               // % de descuento según el precio del perfume
+      { desde: 200000, pct: 10 },
+      { desde: 0,      pct: 5 }
+    ],
+    comboExtra: 5               // % adicional si se llevan los dos juntos (sobre la suma ya con descuento)
+  };
+  const DIA_MS = 86400000;
+
+  function pesos(n) { return "$ " + n.toLocaleString("es-CO"); }
+
+  // Mezcla repetible: la misma semilla da siempre el mismo orden
+  function mezclaFija(arr, semilla) {
+    let a = semilla >>> 0;
+    const rnd = () => {
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    const r = arr.slice();
+    for (let i = r.length - 1; i > 0; i--) {
+      const j = Math.floor(rnd() * (i + 1));
+      [r[i], r[j]] = [r[j], r[i]];
+    }
+    return r;
+  }
+
+  function descuentoPara(precio) {
+    const tramo = OFERTA.descuentos.slice().sort((x, y) => y.desde - x.desde).find(d => precio >= d.desde);
+    return tramo ? tramo.pct : 0;
+  }
+
+  function ofertaDeSemana() {
+    const hoy = Math.floor((Date.now() - 5 * 3600000) / DIA_MS);   // día actual en Colombia (UTC-5)
+    const semana = Math.floor((hoy + 3) / 7);                       // las semanas empiezan el lunes
+    const domingo = semana * 7 - 3 + 6;
+
+    const elegir = (genero, semilla) => {
+      const pool = PERFUMES
+        .filter(p => p.genero === genero && !p.sinOferta && typeof p.precio === "number" && p.precio > 0)
+        .sort((x, y) => x.id - y.id);
+      return pool.length ? mezclaFija(pool, semilla)[semana % pool.length] : null;
+    };
+    const m = elegir("mujer", 2707), h = elegir("hombre", 1301);
+    if (!m || !h) return null;
+
+    const conDescuento = p => {
+      const pct = descuentoPara(p.precio);
+      return { p, pct, normal: p.precio, oferta: Math.round(p.precio * (1 - pct / 100) / 1000) * 1000 };
+    };
+    const A = conDescuento(m), B = conDescuento(h);
+    const normalTotal = A.normal + B.normal;
+    const combo = Math.round((A.oferta + B.oferta) * (1 - OFERTA.comboExtra / 100) / 1000) * 1000;
+    const hasta = new Date(domingo * DIA_MS).toLocaleDateString("es-CO", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" });
+    return { mujer: A, hombre: B, normalTotal, combo, ahorro: normalTotal - combo, hasta };
+  }
+
+  const oferta = ofertaDeSemana();
+  const ofertaDe = id => !oferta ? null : (oferta.mujer.p.id === id ? oferta.mujer : (oferta.hombre.p.id === id ? oferta.hombre : null));
+
   function textoPedido(p) {
     const ml = p.ml && p.ml.trim() !== "" ? ` (${p.ml.trim()})` : "";
+    const of = ofertaDe(p.id);
+    if (of) return `Hola Essence by M&C, quiero la oferta de la semana: ${p.nombre} de ${p.marca}${ml} a ${pesos(of.oferta)} (precio normal ${pesos(of.normal)}). ¿Está disponible?`;
     return `Hola Essence by M&C, me interesa ${p.nombre} de ${p.marca}${ml}. ¿Está disponible?`;
   }
   function textoLista() {
@@ -248,6 +316,39 @@
     }
   }
 
+  // "Oferta de la semana" en la portada
+  const ofertaSec = document.getElementById("oferta");
+  if (ofertaSec && oferta) {
+    const tarjeta = (o, etiqueta) => `
+      <div class="top-card oferta-card">
+        ${imagenHTML(o.p)}
+        <span class="top-marca">${escapeHTML(o.p.marca)} · ${etiqueta}</span>
+        <span class="top-nombre">${escapeHTML(o.p.nombre)}</span>
+        <span class="oferta-precios">
+          <s>${pesos(o.normal)}</s>
+          <strong>${pesos(o.oferta)}</strong>
+          <em>-${o.pct}%</em>
+        </span>
+        <a class="btn-pedir" href="${waLink(textoPedido(o.p))}" target="_blank" rel="noopener">Pedir este</a>
+      </div>`;
+    const textoCombo = `Hola Essence by M&C, quiero el combo de la oferta de la semana: ${oferta.mujer.p.nombre} (${oferta.mujer.p.marca}) + ${oferta.hombre.p.nombre} (${oferta.hombre.p.marca}) por ${pesos(oferta.combo)} (precio normal ${pesos(oferta.normalTotal)}). ¿Están disponibles?`;
+    document.getElementById("ofertaGrid").innerHTML = `
+      ${tarjeta(oferta.mujer, "Mujer")}
+      ${tarjeta(oferta.hombre, "Hombre")}
+      <div class="oferta-combo">
+        <span class="eyebrow">Combo especial</span>
+        <h3>Llévalos juntos</h3>
+        <span class="oferta-precios oferta-precios-grande">
+          <s>${pesos(oferta.normalTotal)}</s>
+          <strong>${pesos(oferta.combo)}</strong>
+        </span>
+        <p>Ahorras ${pesos(oferta.ahorro)} comprando los dos.</p>
+        <a class="btn btn-gold" href="${waLink(textoCombo)}" target="_blank" rel="noopener">Pedir el combo por WhatsApp</a>
+      </div>`;
+    document.getElementById("ofertaVigencia").textContent = `Válida hasta el ${oferta.hasta}, o hasta agotar existencias.`;
+    ofertaSec.hidden = false;
+  }
+
   // ---------- Páginas de colección ----------
   const genero = document.body.dataset.genero;
   if (!genero) return; // estamos en la portada
@@ -350,6 +451,10 @@
 
   // Precio: número (189000 → "$ 189.000"), texto libre, o "Consultar" si está vacío
   function precioHTML(p) {
+    const of = ofertaDe(p.id);
+    if (of) {
+      return `<div class="card-precio en-oferta"><span class="precio-label">Oferta de la semana <em class="oferta-pct">-${of.pct}%</em></span><span class="precio-valor"><s>${pesos(of.normal)}</s> ${pesos(of.oferta)}</span></div>`;
+    }
     let texto = "";
     if (typeof p.precio === "number" && p.precio > 0) {
       texto = "$ " + p.precio.toLocaleString("es-CO");
