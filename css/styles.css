@@ -271,14 +271,12 @@ button{ font-family: var(--font-body); cursor: pointer; }
   height: 210px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--bg-2);
-  opacity: .42;
+  opacity: .5;
 }
 .strip-photo img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 .strip-name{
@@ -581,7 +579,8 @@ button{ font-family: var(--font-body); cursor: pointer; }
 .card-img img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;        /* frasco completo, sin recortar */
+  padding: 6%;
   display: block;
   transition: transform 420ms cubic-bezier(.4,0,.2,1);
 }
@@ -1057,6 +1056,60 @@ body.drawer-open{ overflow: hidden; }
 }
 .contact p.pagos{ color: var(--gold-soft); font-weight: 400; }
 
+
+/* ---------- Oferta de la semana ---------- */
+.oferta{
+  padding: 84px clamp(20px, 5vw, 64px) 40px;
+  background: linear-gradient(180deg, var(--bg-2), var(--bg));
+}
+.oferta[hidden]{ display: none; }
+.oferta-grid{
+  max-width: 820px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+.oferta-card .top-nombre{ font-size: 1.5rem; }
+.oferta-precios{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.oferta-precios s{ color: var(--muted); font-size: .95rem; }
+.oferta-precios strong{ font-family: var(--font-display); font-weight: 500; font-size: 1.7rem; color: var(--accent); }
+.oferta-precios em{
+  font-style: normal;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.oferta-card .oferta-precios{ margin-bottom: 12px; }
+.oferta-card .btn-pedir{ margin-top: auto; }
+.oferta-combo{
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 34px 24px;
+  background: var(--card);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.oferta-combo h3{ font-size: 2.1rem; font-style: italic; color: var(--accent); }
+.oferta-precios-grande{ justify-content: center; }
+.oferta-precios-grande strong{ font-size: 2.4rem; }
+.oferta-combo p{ color: var(--muted); }
+.oferta-combo .btn{ margin-top: 8px; }
+.en-oferta .precio-valor s{ color: var(--muted); font-size: .95rem; font-weight: 400; margin-right: 4px; }
+.oferta-pct{
+  font-style: normal;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  letter-spacing: .06em;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 760px){
   .doors{ grid-template-columns: 1fr; max-width: 420px; }
@@ -1075,6 +1128,9 @@ body.drawer-open{ overflow: hidden; }
   .trust-list{ gap: 26px 14px; }
   .trust-list strong{ font-size: 1.15rem; }
   .top-grid{ grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .oferta-grid{ gap: 12px; }
+  .oferta-precios strong{ font-size: 1.35rem; }
+  .oferta-precios-grande strong{ font-size: 2rem; }
   .top-card{ padding: 10px 10px 14px; }
   .top-nombre{ font-size: 1.1rem; }
   .faq-list summary{ font-size: 1.15rem; }
