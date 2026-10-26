@@ -110,6 +110,16 @@
     </ul>
   </section>
 
+  <!-- OFERTA DE LA SEMANA (cambia sola cada lunes; se arma en js/script.js) -->
+  <section id="oferta" class="oferta" aria-labelledby="ofertaTitulo" hidden>
+    <div class="section-head">
+      <p class="eyebrow">Oferta de la semana</p>
+      <h2 id="ofertaTitulo">Dos fragancias, precio especial</h2>
+      <p id="ofertaVigencia"></p>
+    </div>
+    <div class="oferta-grid" id="ofertaGrid"></div>
+  </section>
+
   <!-- NUESTROS FAVORITOS (se llena solo con las fragancias marcadas destacado: true en data.js) -->
   <section id="favoritos" class="favoritos">
     <div class="section-head">
@@ -146,6 +156,10 @@
       <details>
         <summary>¿Cómo sé qué tipo de producto es cada perfume?</summary>
         <p>Cada ficha del catálogo indica el tipo de producto y su contenido. Si tienes dudas sobre alguna fragancia, escríbenos y te contamos todo antes de pedir.</p>
+      </details>
+      <details>
+        <summary>¿Cómo funciona la oferta de la semana?</summary>
+        <p>Cada lunes elegimos un perfume de mujer y uno de hombre con descuento, y si te llevas los dos juntos tienes un precio especial adicional. La oferta vale hasta el domingo de esa semana o hasta agotar existencias.</p>
       </details>
       <details>
         <summary>¿Me ayudan a elegir un perfume?</summary>
