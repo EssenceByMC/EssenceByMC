@@ -16,6 +16,9 @@
     return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
   }
 
+  // Texto sin tildes y en minúsculas, para que "gio" encuentre "Giò"
+  const norm = str => String(str).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
   function escapeHTML(str) {
     const div = document.createElement("div");
     div.textContent = str;
@@ -34,7 +37,7 @@
     if (p.imagen && p.imagen.trim() !== "") {
       return `
         <div class="card-img">
-          <img src="${escapeHTML(rutaImagen(p.imagen))}" alt="${escapeHTML(p.nombre)} — ${escapeHTML(p.marca)}" loading="lazy">
+          <img src="${escapeHTML(rutaImagen(p.imagen))}" alt="${escapeHTML(p.nombre)} — ${escapeHTML(p.marca)}" loading="lazy" decoding="async">
         </div>
       `;
     }
@@ -316,6 +319,40 @@
     }
   }
 
+  // Buscador general de la portada: busca en todo el catálogo y lleva a la colección
+  const buscador = document.getElementById("buscadorGeneral");
+  if (buscador) {
+    const lista = document.getElementById("buscadorResultados");
+    const etiquetaGenero = { mujer: "Mujer", hombre: "Hombre", unisex: "Unisex" };
+    let resultados = [];
+
+    const cerrar = () => { lista.hidden = true; buscador.setAttribute("aria-expanded", "false"); };
+    const enlace = p => `${p.genero}.html?q=${encodeURIComponent(p.nombre)}`;
+
+    function buscar() {
+      const q = norm(buscador.value.trim());
+      if (q.length < 2) { resultados = []; cerrar(); return; }
+      resultados = PERFUMES
+        .filter(p => norm(p.nombre).includes(q) || norm(p.marca).includes(q))
+        .sort((x, y) => (norm(y.nombre).startsWith(q) - norm(x.nombre).startsWith(q)) || x.nombre.localeCompare(y.nombre))
+        .slice(0, 8);
+      lista.innerHTML = resultados.length
+        ? resultados.map(p => `<li><a href="${enlace(p)}"><span class="res-nombre">${escapeHTML(p.nombre)}</span><span class="res-meta">${escapeHTML(p.marca)} · ${etiquetaGenero[p.genero]}</span></a></li>`).join("")
+        : `<li class="res-vacio">No encontramos esa fragancia. Escríbenos por WhatsApp y te ayudamos a conseguirla.</li>`;
+      lista.hidden = false;
+      buscador.setAttribute("aria-expanded", "true");
+    }
+
+    buscador.addEventListener("input", buscar);
+    buscador.addEventListener("focus", buscar);
+    document.getElementById("buscadorForm").addEventListener("submit", e => {
+      e.preventDefault();
+      if (resultados.length) window.location.href = enlace(resultados[0]);
+    });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") cerrar(); });
+    document.addEventListener("click", e => { if (!e.target.closest("#buscadorForm")) cerrar(); });
+  }
+
   // "Oferta de la semana" en la portada
   const ofertaSec = document.getElementById("oferta");
   if (ofertaSec && oferta) {
@@ -414,10 +451,10 @@
     const qInicial = new URLSearchParams(window.location.search).get("q");
     if (qInicial) {
       search.value = qInicial;
-      state.q = qInicial.trim().toLowerCase();
+      state.q = norm(qInicial.trim());
     }
     search.addEventListener("input", () => {
-      state.q = search.value.trim().toLowerCase();
+      state.q = norm(search.value.trim());
       render();
     });
   }
@@ -437,7 +474,7 @@
     const { q, marca, tipo, momento, nota } = state;
 
     const filtrados = items.filter(p => {
-      const matchQ = !q || p.nombre.toLowerCase().includes(q) || p.marca.toLowerCase().includes(q);
+      const matchQ = !q || norm(p.nombre).includes(q) || norm(p.marca).includes(q);
       const matchMarca = !marca || p.marca === marca;
       const matchTipo = !tipo || (p.tipo || "").trim() === tipo;
       const matchMomento = !momento || p.momento === momento;
@@ -502,6 +539,32 @@
     alternarLista(Number(btn.dataset.id));
   });
 
+  // Datos estructurados para Google (nombre, marca, notas, foto y precio de cada perfume)
+  function datosEstructurados() {
+    const elementos = items.map((p, i) => {
+      const prod = {
+        "@type": "Product",
+        name: p.nombre,
+        brand: { "@type": "Brand", name: p.marca },
+        description: `${p.nombre} de ${p.marca}. Notas: ${p.notas.join(", ")}.`
+      };
+      if (p.imagen && p.imagen.trim() !== "") prod.image = new URL(rutaImagen(p.imagen), document.baseURI).href;
+      if (typeof p.precio === "number" && p.precio > 0) {
+        prod.offers = { "@type": "Offer", price: p.precio, priceCurrency: "COP" };
+      }
+      return { "@type": "ListItem", position: i + 1, item: prod };
+    });
+    const el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: document.title,
+      itemListElement: elementos
+    });
+    document.head.appendChild(el);
+  }
+
   // Colección todavía sin productos
   if (items.length === 0) {
     filtersEl.hidden = true;
@@ -512,4 +575,5 @@
 
   poblarFiltros();
   render();
+  datosEstructurados();
 })();
