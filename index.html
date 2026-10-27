@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Essence by M&amp;C — Perfumería de lujo</title>
-<meta name="description" content="Perfumería de lujo para mujer, hombre y unisex. Envíos a todo Colombia, pago contraentrega y atención personalizada.">
+<title>Perfumes de lujo en Colombia | Essence by M&amp;C</title>
+<meta name="description" content="Perfumes de lujo para mujer, hombre y unisex. Más de 90 fragancias, envíos a todo Colombia, pago contraentrega y atención personalizada por WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Essence by M&amp;C">
 <meta property="og:locale" content="es_CO">
-<meta property="og:title" content="Essence by M&amp;C — Perfumería de lujo">
-<meta property="og:description" content="Perfumería de lujo para mujer, hombre y unisex. Envíos a todo Colombia, pago contraentrega y atención personalizada.">
+<meta property="og:title" content="Perfumes de lujo en Colombia | Essence by M&amp;C">
+<meta property="og:description" content="Perfumes de lujo para mujer, hombre y unisex. Envíos a todo Colombia, pago contraentrega y atención personalizada por WhatsApp.">
 <meta property="og:image" content="https://essencebymc.github.io/EssenceByMC/img/og-portada.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,6 +18,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Essence by M&C","url":"https://essencebymc.github.io/EssenceByMC/","logo":"https://essencebymc.github.io/EssenceByMC/img/og-portada.png","sameAs":["https://instagram.com/essence_bymc"],"contactPoint":{"@type":"ContactPoint","telephone":"+573011754725","contactType":"customer service","areaServed":"CO","availableLanguage":"Spanish"}}
+</script>
 </head>
 <body class="theme-home">
 
@@ -76,6 +79,12 @@
         <span class="door-go"><span>Descubrir</span><i class="door-line" aria-hidden="true"></i></span>
       </a>
     </div>
+
+    <form class="buscador" id="buscadorForm" role="search" autocomplete="off">
+      <label for="buscadorGeneral" class="buscador-label">¿Buscas una fragancia en especial?</label>
+      <input type="search" id="buscadorGeneral" placeholder="Escribe el nombre o la marca…" aria-controls="buscadorResultados" aria-expanded="false">
+      <ul class="buscador-resultados" id="buscadorResultados" hidden></ul>
+    </form>
 
     <div class="hero-badges">
       <span>Catálogo variado</span>
